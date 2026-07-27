@@ -17,14 +17,79 @@ const currentYear = new Date().getFullYear();
   class:list={["app-layout", { "mt-auto": !noMarginTop }, className]}
   {...attrs}
 >
-  <div
-    class="border-border flex flex-col items-center justify-between border-t py-6 sm:flex-row-reverse sm:py-4"
-  >
-    <Socials />
-    <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row">
-      <span>{t.footer.copyright} &#169; {currentYear}</span>
-      <span class="hidden sm:inline">&nbsp;|&nbsp;</span>
-      <span>{t.footer.allRightsReserved}</span>
+ <div
+  class="border-border border-t py-8"
+>
+
+  <div class="grid gap-10 md:grid-cols-4">
+
+    <!-- About -->
+    <div>
+      <h3 class="mb-3 text-lg font-semibold">
+        CashSuccess
+      </h3>
+
+      <p class="text-sm opacity-80">
+        Learn legitimate ways to make money online through AI,
+        blogging, affiliate marketing, freelancing, passive
+        income and digital products.
+      </p>
     </div>
+
+    <!-- Quick Links -->
+    <div>
+      <h3 class="mb-3 text-lg font-semibold">
+        Quick Links
+      </h3>
+
+      <ul class="space-y-2 text-sm">
+
+        <li><a href="/">Home</a></li>
+
+        <li><a href="/tags/">Categories</a></li>
+
+        <li><a href="/about/">About</a></li>
+
+        <li><a href="/contact/">Contact</a></li>
+
+      </ul>
+    </div>
+
+    <!-- Legal -->
+    <div>
+      <h3 class="mb-3 text-lg font-semibold">
+        Legal
+      </h3>
+
+      <ul class="space-y-2 text-sm">
+
+        <li><a href="/privacy-policy/">Privacy Policy</a></li>
+
+        <li><a href="/disclaimer/">Disclaimer</a></li>
+
+        <li><a href="/terms/">Terms & Conditions</a></li>
+
+      </ul>
+    </div>
+
+    <!-- Follow -->
+    <div>
+
+      <h3 class="mb-3 text-lg font-semibold">
+        Follow Us
+      </h3>
+
+      <Socials />
+
+    </div>
+
   </div>
+
+  <div class="border-border mt-8 border-t pt-6 text-center text-sm opacity-80">
+
+    © {currentYear} CashSuccess.online. All rights reserved.
+
+  </div>
+
+</div>
 </footer>

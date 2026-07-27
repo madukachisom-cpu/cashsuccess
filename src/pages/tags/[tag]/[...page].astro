@@ -1,6 +1,8 @@
 ---
 import { getCollection } from "astro:content";
 import type { GetStaticPathsOptions } from "astro";
+import { Image } from "astro:assets";
+
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Main from "@/components/Main.astro";
@@ -8,11 +10,13 @@ import Breadcrumb from "@/components/Breadcrumb.astro";
 import Card from "@/components/Card.astro";
 import Footer from "@/components/Footer.astro";
 import Pagination from "@/components/Pagination.astro";
+
 import { getUniqueTags } from "@/utils/getUniqueTags";
 import { getSortedPosts } from "@/utils/getSortedPosts";
 import { slugifyAll } from "@/utils/slugify";
-import { useTranslations } from "@/i18n";
+
 import config from "@/config";
+import { tagData } from "@/data/tags";
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const posts = await getCollection("posts", ({ data }) => !data.draft);
@@ -31,23 +35,50 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   });
 }
 
-const { page, tagName } = Astro.props;
+const { page } = Astro.props;
 
-const locale = Astro.currentLocale ?? config.site.lang;
-const t = useTranslations(locale);
+// THIS is the important fix
+const { tag } = Astro.params;
+
+const tagInfo = tagData[tag as keyof typeof tagData];
 ---
 
-<Layout title={`${t.pages.tagTitle}: ${tagName} | ${config.site.title}`}>
+<Layout title={`${tagInfo.title} | ${config.site.title}`}>
   <Header />
 
   <Breadcrumb />
 
-  <Main
-    pageTitle={`${t.pages.tagTitle}: ${tagName}`}
-    pageDesc={`${t.pages.tagDesc} "${tagName}".`}
-  >
+  <Main>
+    <section class="mb-10 overflow-hidden rounded-3xl border border-border">
+      <Image
+        src={tagInfo.image}
+        alt={tagInfo.title}
+        class="h-72 w-full object-cover"
+      />
+
+      <div class="p-8">
+        <h1 class="text-4xl font-bold">
+          {tagInfo.title}
+        </h1>
+
+        <p class="mt-4 text-lg opacity-80">
+          {tagInfo.description}
+        </p>
+
+        <p class="mt-6 text-sm opacity-60">
+          {page.data.length} article{page.data.length !== 1 ? "s" : ""}
+        </p>
+      </div>
+    </section>
+
+    <h2 class="mb-8 text-2xl font-bold">
+      Latest Articles
+    </h2>
+
     <ul>
-      {page.data.map(data => <Card {...data} />)}
+      {page.data.map(post => (
+        <Card {...post} />
+      ))}
     </ul>
   </Main>
 

@@ -1,37 +1,33 @@
 ---
 title: "About"
-description: "A bit about me and this blog."
+description: "Learn more about CashSuccess and our mission to help people earn money online."
 ---
 
-AstroPaper is a minimal, accessible and SEO-friendly blog theme built with [Astro](https://astro.build/) and [Tailwind CSS](https://tailwindcss.com/).
 
-![Astro Paper](@/assets/images/astropaper-og.jpg)
+Welcome to **CashSuccess**, a website dedicated to helping people discover legitimate ways to make money online.
 
-AstroPaper provides a solid foundation for blogs, or even portfolios\_ with full markdown support, built-in dark mode, and a clean layout that works out-of-the-box.
+Our goal is simple: provide practical, well-researched guides that help beginners and experienced online earners find real income opportunities from anywhere in the world.
 
-The blog posts in this theme also serve as guides, docs or example articles\_ making AstroPaper a flexible starting point for your next content-driven site.
+Our content covers topics including:
 
-## Features
+- AI-powered side hustles
+- Paid survey websites
+- Paid-to-train AI platforms
+- Freelancing and remote work
+- Website and blog monetization
+- Affiliate marketing
+- Passive income ideas
+- Digital products
+- Website and app testing
 
-AstroPaper comes with a set of useful features that make content publishing easy and effective:
+Every article is written to provide clear, honest and practical information. We continuously update our guides to reflect changes in online earning platforms and emerging opportunities.
 
-- SEO-friendly
-- Fast performance
-- Light & dark mode
-- Highly customizable
-- Organizable blog posts
-- Responsive & accessible
-- Static search with [PageFind](https://pagefind.app/)
-- Automatic social image generation
+## Our Mission
 
-and so much more.
+Our mission is to help people build reliable online income through legitimate opportunities instead of scams or unrealistic promises.
 
-## Show your support
+## Transparency
 
-If you like [AstroPaper](https://github.com/satnaing/astro-paper), consider giving it a star ⭐️.
+Some articles may contain affiliate links. If you purchase through these links, we may earn a small commission at no additional cost to you. This helps support the website and allows us to continue publishing free content.
 
-Found a bug 🐛 or have an improvement ✨ in mind? Feel free to open an [issue](https://github.com/satnaing/astro-paper/issues), submit a [pull request](https://github.com/satnaing/astro-paper/pulls) or start a [discussion](https://github.com/satnaing/astro-paper/discussions).
-
-If you find this theme helpful, you can also [sponsor me on GitHub](https://github.com/sponsors/satnaing) or [buy me a coffee](https://buymeacoffee.com/satnaing) to show your support — every penny counts.
-
-Kyay zuu! 🙏🏼
+Thank you for visiting CashSuccess.
