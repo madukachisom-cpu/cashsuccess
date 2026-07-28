@@ -2,6 +2,7 @@ import { defineAstroPaperConfig } from "./src/types/config";
 
 export default defineAstroPaperConfig({
   site: {
+    title: "Cash Success",
     url: "https://cashsuccess.online/",
     description:
       "Learn legitimate ways to make money online through AI, freelancing, online surveys, affiliate marketing, digital products, passive income, and remote work.",

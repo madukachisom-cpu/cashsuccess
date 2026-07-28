@@ -22,7 +22,7 @@ const {
 <li class="my-10 overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700">
   {ogImage && (
     <a href={getPostUrl(id, filePath, Astro.currentLocale)}>
-      <Image
+      <Image src={...} alt={...} class={...} width={600} height={400} />
         src={ogImage}
         alt={title}
         class="h-64 w-full object-cover"
