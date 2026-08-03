@@ -19,38 +19,50 @@ const {
 } = data;
 ---
 
-<li class="my-10 overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700">
-  {ogImage && (
-    <a href={getPostUrl(id, filePath, Astro.currentLocale)}>
-      <Image
-        src={ogImage}
-        alt={title}
-        class="h-64 w-full object-cover"
-        width={600}
-        height={400}
-      />
-    </a>
-  )}
+<li class="my-8 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:shadow-xl dark:border-gray-700 dark:bg-gray-900">
 
-  <div class="p-6">
-    <a
-      href={getPostUrl(id, filePath, Astro.currentLocale)}
-      class="hover:text-accent"
-    >
+  <a
+    href={getPostUrl(id, filePath, Astro.currentLocale)}
+    class="grid md:grid-cols-[320px_1fr]"
+  >
+
+    {ogImage && (
+      <div class="overflow-hidden">
+        <Image
+          src={ogImage}
+          alt={title}
+          width={600}
+          height={400}
+          class="h-64 w-full object-cover transition duration-500 hover:scale-105 md:h-full"
+        />
+      </div>
+    )}
+
+    <div class="flex flex-col justify-center p-6 lg:p-8">
+
       <Heading
         transition:name={toTransitionName(title)}
-        class="text-2xl font-bold"
+        class="text-2xl font-bold leading-tight transition hover:text-accent"
       >
         {title}
       </Heading>
-    </a>
 
-    <div class="mt-2">
-      <Datetime {...props} />
+      <div class="mt-3">
+        <Datetime {...props} />
+      </div>
+
+      <p class="mt-5 line-clamp-3 text-base leading-7 text-gray-600 dark:text-gray-300">
+        {description}
+      </p>
+
+      <span
+        class="mt-6 inline-flex items-center font-semibold text-accent"
+      >
+        Read article →
+      </span>
+
     </div>
 
-    <p class="mt-4 text-base leading-7">
-      {description}
-    </p>
-  </div>
+  </a>
+
 </li>

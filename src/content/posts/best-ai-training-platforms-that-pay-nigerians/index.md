@@ -4,6 +4,7 @@ description: "Artificial intelligence systems do not learn on their own. Behind 
 pubDatetime: 2026-06-21T00:00:00Z
 tags:
   - paid-to-train-ai
+ogimage: "./images/paid-to-train-ai-nigeria.jpg"
 ---
 
 

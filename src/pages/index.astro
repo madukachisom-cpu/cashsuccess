@@ -1,13 +1,12 @@
 ---
 import { getCollection } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
-import IconRss from "@/assets/icons/IconRss.svg";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import Socials from "@/components/Socials.astro";
 import Card from "@/components/Card.astro";
+import HotTopicCard from "@/components/HotTopicCard.astro";
 import LinkButton from "@/components/LinkButton.astro";
 import CategoryCard from "@/components/CategoryCard.astro";
 import { tagData } from "@/data/tags";
@@ -21,7 +20,18 @@ const t = useTranslations(locale);
 const posts = await getCollection("posts");
 const sortedPosts = getSortedPosts(posts);
 const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
-const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
+const recentPosts = sortedPosts
+  .filter(({ data }) => !data.featured)
+  .slice(0, postsConfig.perIndex);
+
+const recentIds = new Set(
+  recentPosts.map(post => post.id)
+);
+
+const hotPosts = [...sortedPosts]
+  .filter(post => !recentIds.has(post.id))
+  .sort(() => Math.random() - 0.5)
+  .slice(0, 3);
 const homePath = getRelativeLocaleUrl(locale, "");
 ---
 
@@ -33,51 +43,106 @@ const homePath = getRelativeLocaleUrl(locale, "");
     data-home-path={homePath}
     class="app-layout"
   >
-    <section id="hero" class="border-border border-b pt-8 pb-6">
-      <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
-        CashSuccess
-      </h1>
-      <a
-        target="_blank"
-        href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}rss.xml`}
-        class="inline-block"
-        aria-label="RSS Feed"
-        title="RSS Feed"
+  <section id="hero" class="border-border border-b py-12">
+
+  <form
+    action="/search"
+    method="GET"
+    class="mx-auto mb-10 max-w-3xl"
+  >
+    <div class="relative">
+      <input
+        type="search"
+        name="q"
+        placeholder="Search"
+        class="w-full rounded-xl border border-gray-300 bg-white px-6 py-4 pr-32 text-lg shadow-sm focus:border-accent focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+      />
+
+      <button
+        type="submit"
+        class="absolute right-2 top-1/2 -translate-y-1/2 rounded-lg bg-accent px-6 py-2.5 font-medium text-white transition hover:opacity-90"
       >
-        <IconRss
-          width={20}
-          height={20}
-          class="stroke-accent scale-125 stroke-3 rtl:-rotate-90"
-        />
-        <span class="sr-only">RSS Feed</span>
+        Search
+      </button>
+    </div>
+  </form>
+
+  <div class="mx-auto max-w-4xl text-center">
+
+    <h1 class="text-3xl font-extrabold leading-tight sm:text-3xl">
+      Discover Legitimate Ways to Make Money Online
+    </h1>
+
+    <p class="mx-auto mt-6 max-w-3xl text-lg text-gray-600 dark:text-gray-300">
+      Practical guides on AI jobs, paid surveys, freelancing, affiliate marketing,
+      passive income, website testing, remote work and digital products.
+    </p>
+
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+
+      <a
+        href="/tags/ai-powered-side-hustles/"
+        class="rounded-full border px-4 py-2 hover:bg-accent hover:text-white transition"
+      >
+        AI Side Hustles
       </a>
-      <p>
-        Discover legitimate ways to make money online through AI, paid surveys,
-        freelancing, affiliate marketing, passive income, website monetization,
-        and digital products. Every guide is written to help beginners and
-        experienced earners find practical income opportunities worldwide.
-      </p>
-      <p class="mt-2">
-        Browse our latest articles below or use the search icon above to quickly
-        find detailed guides on the topic you're interested in.
-      </p>
-      {
-        socials.length > 0 && (
-          <div class="mt-4 flex max-sm:flex-col sm:items-center">
-            <div class="me-2 mb-1 whitespace-nowrap sm:mb-0">
-              Follow CashSuccess:
-            </div>
-            <Socials />
-          </div>
-        )
-      }
-    </section>
+
+      <a
+        href="/tags/get-paid-for-your-opinion/"
+        class="rounded-full border px-4 py-2 hover:bg-accent hover:text-white transition"
+      >
+        Paid Surveys
+      </a>
+
+      <a
+        href="/tags/website-and-app-testing/"
+        class="rounded-full border px-4 py-2 hover:bg-accent hover:text-white transition"
+      >
+        Website & App Testing
+      </a>
+
+      <a
+        href="/tags/passive-income/"
+        class="rounded-full border px-4 py-2 hover:bg-accent hover:text-white transition"
+      >
+        Passive Income
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- Hot Topics -->
+
+<section class="py-16 border-border border-b">
+
+<h2 class="mb-8 text-3xl font-bold">
+🔥 Hot Topics
+</h2>
+
+<div class="grid gap-5 lg:grid-cols-3">
+
+{
+hotPosts.map(post=>(
+<HotTopicCard {...post}/>
+))
+}
+
+</div>
+
+</section>
 
     <!-- Browse Categories Section -->
     <section id="categories" class="pt-12 pb-6 border-border border-b">
-      <h2 class="text-2xl font-semibold tracking-wide mb-6">
-        Browse Categories
-      </h2>
+      <h2 class="text-3xl font-bold">
+  Explore Categories
+</h2>
+
+<p class="mt-2 mb-8 text-gray-500 dark:text-gray-400">
+  Browse our carefully selected categories covering AI, freelancing, surveys, blogging, affiliate marketing, passive income and more.
+</p>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {
           Object.entries(tagData).map(([key, category]) => (

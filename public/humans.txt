@@ -1,0 +1,16 @@
+Cash Success
+
+Website:
+https://cashsuccess.online
+
+Author:
+David Treasure
+
+Contact:
+support@cashsuccess.online
+
+Technology:
+Astro
+AstroPaper
+Pagefind
+Cloudflare
