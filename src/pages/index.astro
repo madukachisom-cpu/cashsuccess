@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
+import RecentPostCard from "@/components/RecentPostCard.astro";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
@@ -184,11 +185,11 @@ hotPosts.map(post=>(
           <h2 class="text-2xl font-semibold tracking-wide">
             {t.home.recentPosts}
           </h2>
-          <ul>
-            {recentPosts.slice(0, postsConfig.perIndex).map(data => (
-              <Card variant="h3" {...data} />
-            ))}
-          </ul>
+          <ul class="mt-8 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+  {recentPosts.slice(0, postsConfig.perIndex).map(data => (
+    <RecentPostCard {...data} />
+  ))}
+</ul>
         </section>
       )
     }

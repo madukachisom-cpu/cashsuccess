@@ -28,6 +28,33 @@ const rssHref = getRelativeLocaleUrl(
   Astro.currentLocale ?? config.site.lang,
   "rss.xml"
 );
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: site.title,
+  url: site.url,
+  description: site.description,
+  inLanguage: site.lang,
+  potentialAction: {
+    "@type": "SearchAction",
+    target: `${site.url}search/?q={search_term_string}`,
+    "query-input": "required name=search_term_string"
+  }
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: site.title,
+  url: site.url,
+  logo: `${site.url}logo.png`,
+  sameAs: [
+    "https://x.com/Treafdx",
+    "https://www.facebook.com/share/1C3BcUk3wW/",
+    "https://pin.it/4GOVtwOwp",
+    "https://medium.com/@treasuredavid1"
+  ]
+};
 ---
 
 <!doctype html>
@@ -84,6 +111,15 @@ const rssHref = getRelativeLocaleUrl(
     <meta name="theme-color" content="" />
 
     <!-- Extra head content injected by child layouts (e.g. JSON-LD, article meta) -->
+    <script
+  type="application/ld+json"
+  set:html={JSON.stringify(websiteSchema)}
+></script>
+
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify(organizationSchema)}
+></script>
     <slot name="head" />
 
     {
