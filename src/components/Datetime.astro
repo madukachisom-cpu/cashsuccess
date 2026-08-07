@@ -15,6 +15,7 @@ type Props = {
   pubDatetime: string | Date;
   timezone?: string;
   modDatetime?: string | Date | null;
+  readingTime?: number;
 };
 
 const {
@@ -23,6 +24,7 @@ const {
   size = "sm",
   class: className = "",
   timezone: postTimezone,
+  readingTime,
 } = Astro.props;
 
 const t = useTranslations(Astro.currentLocale);
@@ -37,7 +39,7 @@ const date = datetime.format("D MMM, YYYY");
 ---
 
 <div
-  class:list={["text-muted-foreground flex items-center gap-x-2", className]}
+  class:list={["text-muted-foreground flex flex-wrap items-center gap-x-2", className]}
 >
   <IconCalendar
     class:list={[
@@ -45,6 +47,7 @@ const date = datetime.format("D MMM, YYYY");
       { "scale-90": size === "sm" },
     ]}
   />
+
   {
     isModified && (
       <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}>
@@ -52,10 +55,22 @@ const date = datetime.format("D MMM, YYYY");
       </span>
     )
   }
+
   <time
     class:list={["text-sm", { "sm:text-base": size === "lg" }]}
     datetime={datetime.toISOString()}
   >
     {date}
   </time>
+
+  {
+    readingTime && (
+      <>
+        <span>•</span>
+        <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}>
+          ⏱ {readingTime} min read
+        </span>
+      </>
+    )
+  }
 </div>

@@ -14,6 +14,8 @@ import ShareLinks from "./_components/ShareLinks.astro";
 import BackButton from "./_components/BackButton.astro";
 import BackToTopButton from "./_components/BackToTopButton.astro";
 import AdjacentPostNav from "./_components/AdjacentPostNav.astro";
+import RecentPostCard from "@/components/RecentPostCard.astro";
+import AuthorBox from "@/components/AuthorBox.astro";
 import config from "@/config";
 
 export async function getStaticPaths() {
@@ -92,6 +94,15 @@ if (!ogImageUrl && config.features.dynamicOgImage) {
 const ogImage = ogImageUrl
   ? new URL(ogImageUrl, Astro.url.origin).href
   : undefined;
+  const allPosts = getSortedPosts(await getCollection("posts"));
+
+const relatedPosts = allPosts
+  .filter(
+    p =>
+      p.id !== post.id &&
+      p.data.tags.some(tag => tags.includes(tag))
+  )
+  .slice(0, 3);
 ---
 
 <PostLayout
@@ -111,6 +122,28 @@ const ogImage = ogImageUrl
     class:list={["app-layout", { "mt-8": !config.features.showBackButton }]}
     data-pagefind-body
   >
+  <nav
+  aria-label="Breadcrumb"
+  class="mb-6 text-sm text-gray-500 dark:text-gray-400"
+>
+  <ol class="flex flex-wrap items-center gap-2">
+    <li>
+      <a href="/" class="hover:text-accent">Home</a>
+    </li>
+
+    <li>/</li>
+
+    <li>
+      <a href="/tags/" class="hover:text-accent">Categories</a>
+    </li>
+
+    <li>/</li>
+
+    <li class="font-medium text-accent">
+      {title}
+    </li>
+  </ol>
+</nav>
     <h1
       style={{ viewTransitionName: toTransitionName(title) }}
       class="text-accent inline-block text-2xl font-bold sm:text-3xl"
@@ -119,7 +152,16 @@ const ogImage = ogImageUrl
     </h1>
 
     <div class="my-2 flex items-center gap-2">
-      <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
+      <Datetime
+  {pubDatetime}
+  {modDatetime}
+  {timezone}
+  size="lg"
+  readingTime={Math.max(
+    1,
+    Math.ceil((await render(post)).remarkPluginFrontmatter.words / 200)
+  )}
+/>
       <span
         aria-hidden="true"
         class:list={[
@@ -154,10 +196,30 @@ const ogImage = ogImageUrl
     </ul>
 
     <ShareLinks />
+    <AuthorBox />
 
     <hr class="my-8 border-dashed" />
 
-    <AdjacentPostNav {prevPost} {nextPost} />
+    {
+  relatedPosts.length > 0 && (
+    <>
+      <hr class="my-10 border-dashed" />
+
+      <section class="mb-12">
+        <h2 class="mb-6 text-2xl font-bold">
+          Related Articles
+        </h2>
+
+        <ul>
+          {relatedPosts.map(post => (
+            <RecentPostCard {...post} />
+          ))}
+        </ul>
+      </section>
+    </>
+  )
+}
+<AdjacentPostNav {prevPost} {nextPost} />
   </main>
   <Footer />
 </PostLayout>
